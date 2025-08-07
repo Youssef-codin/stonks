@@ -8,14 +8,14 @@ async function getAllData(coin: string) {
     }
   });
 
-  if (!res.ok) throw new Response("404 not found", { status: 404 })
+  if (!res.ok) throw new Response("404 not found", { status: 404 });
   const jsonData = await res.json();
 
-  console.log(jsonData.data[0])
   return jsonData.data[0];
 }
 
 export async function getRates(coin: string) {
-  return getAllData(coin).then(data => data.getUsd);
+  const data = await getAllData(coin);
+  return Math.round(data.rateUsd);
 
 }
