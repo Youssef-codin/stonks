@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card"
+import { Button } from "../ui/button";
 
 export const Dashboard = () => {
   return (
@@ -24,7 +25,9 @@ export const Dashboard = () => {
               BTC price
             </span>
           </CardTitle>
-          <CardAction>More details</CardAction>
+          <CardAction>
+            <Button variant="link" className="cursor-pointer">More Details</Button>
+          </CardAction>
           <CardDescription>Feb-Apr USD</CardDescription>
         </CardHeader>
         <CardContent>
