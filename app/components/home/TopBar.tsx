@@ -18,7 +18,7 @@ export const TopBar = () => {
   }
 
   return (
-    <div className="flex flex-row w-full h-14 pt-2 relative bg-neutral-100 dark:bg-neutral-800 " >
+    <div className="flex flex-row w-full h-14 pt-2 relative bg-(var[--bg-dark])" >
       <PlaceholdersAndVanishInput
         placeholders={placeholders}
         onChange={onChange}

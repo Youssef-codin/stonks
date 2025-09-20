@@ -5,7 +5,7 @@ import { CoinChart } from "../CoinChart";
 export function ChartCard() {
 
   return (
-    <Card className="bg-transparent border border-gray-50 rounded-2xl col-span-2 p-4">
+    <Card className="border rounded-2xl col-span-2 p-4">
       <CardHeader>
         <CardTitle className="text-3xl font-medium">
           <span className="flex gap-x-2 pb-1">

@@ -30,10 +30,33 @@ export default function App() {
   );
 }
 
-// TODO:
-// export function HydrateFallback() {
-//   return ();
-// }
+// TODO: this is currently temporary, make pulsing dashboard later
+export function HydrateFallback() {
+  return (
+    <div className="flex h-screen w-full flex-col items-center justify-center bg-[var(--bg)] text-[var(--text)]">
+      {/* Title */}
+      <h1 className="mb-6 text-3xl font-bold text-[var(--primary)] animate-pulse">
+        Stonks Dashboard
+      </h1>
+
+      {/* Fake chart bars */}
+      <div className="flex gap-2">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div
+            key={i}
+            className="w-6 rounded bg-[var(--bg-light)] animate-pulse"
+            style={{ height: `${40 + i * 15}px` }}
+          ></div>
+        ))}
+      </div>
+
+      {/* Subtext */}
+      <p className="mt-8 text-[var(--text-muted)]">
+        Loading your crypto data...
+      </p>
+    </div>
+  );
+}
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let message = "Oops!";

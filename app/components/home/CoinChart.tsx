@@ -1,5 +1,4 @@
 import { CartesianGrid, Legend, Line, LineChart, XAxis, YAxis } from "recharts"
-
 import { ChartContainer, ChartTooltipContent, type ChartConfig } from "../ui/chart"
 
 export function CoinChart() {
@@ -19,6 +18,7 @@ export function CoinChart() {
     },
   } satisfies ChartConfig
 
+  //TODO: add chart tool tip
   return (
     <ChartContainer config={chartConfig} className="w-full h-80 col-span-2 relative">
       <LineChart data={data} >
