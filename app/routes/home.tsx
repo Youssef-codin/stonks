@@ -1,4 +1,4 @@
-import { getAllData, getCoinData } from "~/api.js";
+import { getAllData, getCoinChartData, getCoinData } from "~/api.js";
 import type { Route } from "./+types/home.tsx";
 import { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "../components/ui/sidebarAnimated";
@@ -11,16 +11,24 @@ import { motion } from "motion/react";
 import brandLogo from '/stonks3d.ico'
 import { TopBar } from "../components/home/TopBar.js";
 import { Dashboard } from "../components/home/DashBoard.js";
+import { type ChartCardPropsType } from "~/components/home/Cards/ChartCard.js";
 
 export async function clientLoader() {
   await getAllData();
   const bitcoinData = await getCoinData("bitcoin");
-  const eth = await getCoinData("bitcoin");
+  const bitcoinChartData = await getCoinChartData("bitcoin");
 
-  return { bitcoinData, eth };
+  return { bitcoinData, bitcoinChartData };
 }
 
 export default function home({ loaderData }: Route.ComponentProps) {
+
+  loaderData.bitcoinChartData.push({ date: Date.now(), price: loaderData.bitcoinData.market_data.current_price.usd })
+
+  const chartData: ChartCardPropsType = {
+    title: "BTC",
+    prices: loaderData.bitcoinChartData
+  };
 
   const links = [
     {
@@ -65,7 +73,7 @@ export default function home({ loaderData }: Route.ComponentProps) {
       </Sidebar>
       <div className="w-full ">
         <TopBar />
-        <Dashboard bitcoinData={loaderData.bitcoinData} />
+        <Dashboard bitcoinData={loaderData.bitcoinData} bitcoinChartData={chartData} />
       </div>
     </div>
   );

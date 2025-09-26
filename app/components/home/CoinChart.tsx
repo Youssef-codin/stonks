@@ -1,15 +1,24 @@
 import { CartesianGrid, Legend, Line, LineChart, XAxis, YAxis } from "recharts"
 import { ChartContainer, ChartTooltipContent, type ChartConfig } from "../ui/chart"
+import type { ChartCardPropsType } from "./Cards/ChartCard"
+import type { PricePoint } from "~/api"
 
-export function CoinChart() {
-  const data = [
-    { monthDay: "Feb 1st", price: 94028 },
-    { monthDay: "Feb 14th", price: 80329 },
-    { monthDay: "Mar 1st", price: 92912 },
-    { monthDay: "Mar 14th", price: 84582 },
-    { monthDay: "Apr 1st", price: 82112 },
-    { monthDay: "Apr 19th", price: 84003 },
-  ]
+function formatMonthYear(timestamp: number): string {
+  const d = new Date(timestamp)
+  return d.toLocaleDateString("en-US", {
+    month: "short",
+    year: "numeric",
+  })
+}
+
+interface displayDataType {
+  date: string,
+  price: number
+}
+
+export function CoinChart({ data }: { data: PricePoint[] }) {
+
+  const displayData: displayDataType[] = data.map(p => { return { date: formatMonthYear(p.date), price: p.price } });
 
   const chartConfig = {
     price: {
@@ -19,18 +28,20 @@ export function CoinChart() {
   } satisfies ChartConfig
 
   //TODO: add chart tool tip
+
   return (
     <ChartContainer config={chartConfig} className="w-full h-80 col-span-2 relative">
-      <LineChart data={data} >
+      <LineChart data={displayData} >
         <CartesianGrid vertical={false} />
         <Line type="linear" dataKey="price" fill="#f74358" stroke="#f74358" />
         <XAxis
-          dataKey="monthDay"
-          tickLine={false}
+          dataKey="date"
+          tickLine={true}
           tickMargin={10}
-          axisLine={false}
+          allowDuplicatedCategory={false}
+          axisLine={true}
         />
-        <YAxis dataKey="price" tickLine={true} domain={[50000, "auto"]} />
+        <YAxis dataKey="price" tickLine={true} domain={[60000, "auto"]} />
         {/* <ChartTooltip content={<ChartTooltipContent />} /> */}
 
         <Legend />

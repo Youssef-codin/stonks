@@ -2,12 +2,12 @@ const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = "https://api.coingecko.com/api/v3/";
 let allCoins: multipleCoinInfo[];
 
-interface IcoinInfo {
+interface coinInfo {
   id: string;
   name: string;
 }
 
-interface multipleCoinInfo extends IcoinInfo {
+interface multipleCoinInfo extends coinInfo {
   image: string;
   current_price: number;
   price_change_percentage_24h: number;
@@ -15,7 +15,7 @@ interface multipleCoinInfo extends IcoinInfo {
   low_24h: number;
 }
 
-export interface singleCoinInfo extends IcoinInfo {
+export interface singleCoinInfo extends coinInfo {
   image: {
     thumb: string;
     small: string;
@@ -55,6 +55,10 @@ export interface singleCoinInfo extends IcoinInfo {
   };
 }
 
+export interface PricePoint {
+  date: number,
+  price: number
+}
 
 export async function getCoinData(coinName: string): Promise<singleCoinInfo> {
   const options = {
@@ -80,6 +84,52 @@ export async function getCoinData(coinName: string): Promise<singleCoinInfo> {
   } catch (err) {
     throw new Response("Network error", { status: 500 });
 
+  }
+}
+
+type ChartResponse = [number, number];
+
+export function filterMonthly(prices: ChartResponse[]): PricePoint[] {
+  const seenMonths = new Set<string>()
+  const monthly: PricePoint[] = []
+
+  for (const [ts, price] of prices) {
+    const d = new Date(ts)
+    const key = `${d.getUTCFullYear()}-${d.getUTCMonth()}`
+
+    if (!seenMonths.has(key)) {
+      monthly.push({ date: ts, price })
+      seenMonths.add(key)
+    }
+  }
+
+  return monthly.slice(1, 6);
+}
+
+export async function getCoinChartData(coinName: string): Promise<PricePoint[]> {
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      'x-cg-demo-api-key': API_KEY
+    }
+  };
+
+  try {
+
+    const res = await fetch(BASE_URL + `coins/${coinName}/market_chart?vs_currency=usd&days=180`, options);
+
+    if (!res.ok) {
+      throw new Response(`API Error: ${res.status} ${res.statusText}`, { status: res.status });
+    }
+
+    const data: ChartResponse[] = await res.json().then(res => res.prices);
+    const monthlyData = filterMonthly(data)
+
+    return monthlyData;
+
+  } catch (err) {
+    throw new Response("Network error", { status: 500 });
   }
 }
 
