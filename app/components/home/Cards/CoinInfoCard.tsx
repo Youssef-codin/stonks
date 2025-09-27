@@ -1,8 +1,8 @@
-import { IconArrowUp, IconChartCandle, IconDeviceDesktopAnalytics } from "@tabler/icons-react";
+import { IconArrowUp, IconChartCandle, IconChartHistogram, IconDeviceDesktopAnalytics } from "@tabler/icons-react";
 import type { singleCoinInfo } from "~/api";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 
-function formatCurrencyCompact(value: number, currency: string = "USD"): string {
+export function formatCurrencyCompact(value: number, currency: string = "USD"): string {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency,
@@ -19,7 +19,7 @@ export function CoinInfoCard({ stats }: { stats: singleCoinInfo }) {
         <CardTitle >
           <div className="h-[70px] text-3xl font-medium flex flex-row justify-center py-3">
             <span className="flex gap-1">
-              <IconDeviceDesktopAnalytics className="w-10 h-10" />
+              <IconChartHistogram className="w-10 h-10" />
               Market Stats
             </span>
           </div>

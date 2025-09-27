@@ -7,7 +7,7 @@ interface coinInfo {
   name: string;
 }
 
-interface multipleCoinInfo extends coinInfo {
+export interface multipleCoinInfo extends coinInfo {
   image: string;
   current_price: number;
   price_change_percentage_24h: number;
@@ -103,7 +103,7 @@ export function filterMonthly(prices: ChartResponse[]): PricePoint[] {
     }
   }
 
-  return monthly.slice(1, 6);
+  return monthly.slice(0, 5);
 }
 
 export async function getCoinChartData(coinName: string): Promise<PricePoint[]> {
@@ -158,9 +158,13 @@ export async function getAllData() {
 }
 
 export async function getTopLosers() {
-  allCoins.sort((a: multipleCoinInfo, b: multipleCoinInfo) => a.price_change_percentage_24h - b.price_change_percentage_24h);
+  return allCoins.sort((a: multipleCoinInfo, b: multipleCoinInfo) =>
+    a.price_change_percentage_24h - b.price_change_percentage_24h)
+    .slice(0, 5);
 }
 
 export async function getTopGainers() {
-  allCoins.sort((a: multipleCoinInfo, b: multipleCoinInfo) => b.price_change_percentage_24h - a.price_change_percentage_24h);
+  return allCoins.sort((a: multipleCoinInfo, b: multipleCoinInfo) =>
+    b.price_change_percentage_24h - a.price_change_percentage_24h)
+    .slice(0, 5);
 }

@@ -1,4 +1,4 @@
-import { IconChartLine, IconGraph } from "@tabler/icons-react";
+import { IconChartLine, IconGraphOff } from "@tabler/icons-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
 import {
   Table,
@@ -12,15 +12,15 @@ import {
 import { TopCell } from "./TopCell";
 import type { multipleCoinInfo } from "~/api";
 
-export function TopGainersCard({ stats }: { stats: multipleCoinInfo[] }) {
+export function TopLosersCard({ stats }: { stats: multipleCoinInfo[] }) {
   return (
     <Card className="border rounded-2xl">
       <CardHeader>
         <CardTitle>
           <div className="h-[55px] text-2xl font-medium flex flex-row py-3">
             <span className="flex gap-2 pl-4">
-              <IconGraph color="#5BB387" className="w-8 h-8"></IconGraph>
-              Top Gainers
+              <IconGraphOff color="#DF8177" className="w-8 h-8"></IconGraphOff>
+              Top Losers
             </span>
           </div>
         </CardTitle>
@@ -38,8 +38,8 @@ export function TopGainersCard({ stats }: { stats: multipleCoinInfo[] }) {
             <TableBody>
               {stats.map((coin: multipleCoinInfo, index: number) => (
                 <TopCell
-                  key={coin.name} // 👈 important for React lists
-                  rank={index + 1} // 👈 starts at 1 and increases
+                  key={coin.name}
+                  rank={index + 1}
                   icon={coin.image}
                   name={coin.name}
                   price={coin.current_price}

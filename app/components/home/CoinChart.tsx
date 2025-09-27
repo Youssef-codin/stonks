@@ -23,7 +23,7 @@ export function CoinChart({ data }: { data: PricePoint[] }) {
   const chartConfig = {
     price: {
       label: "Price",
-      color: "#f74358",
+      color: "#61B5DF",
     },
   } satisfies ChartConfig
 
@@ -33,7 +33,7 @@ export function CoinChart({ data }: { data: PricePoint[] }) {
     <ChartContainer config={chartConfig} className="w-full h-80 col-span-2 relative">
       <LineChart data={displayData} >
         <CartesianGrid vertical={false} />
-        <Line type="linear" dataKey="price" fill="#f74358" stroke="#f74358" />
+        <Line type="linear" dataKey="price" fill="#61B5DF" stroke="#61B5DF" />
         <XAxis
           dataKey="date"
           tickLine={true}

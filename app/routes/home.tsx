@@ -1,4 +1,4 @@
-import { getAllData, getCoinChartData, getCoinData } from "~/api.js";
+import { getAllData, getCoinChartData, getCoinData, getTopGainers, getTopLosers } from "~/api.js";
 import type { Route } from "./+types/home.tsx";
 import { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "../components/ui/sidebarAnimated";
@@ -8,17 +8,25 @@ import {
   IconInfoHexagon as AboutIcon,
 } from "@tabler/icons-react";
 import { motion } from "motion/react";
-import brandLogo from '/stonks3d.ico'
+import brandLogo from '/stonks3d.ico';
 import { TopBar } from "../components/home/TopBar.js";
 import { Dashboard } from "../components/home/DashBoard.js";
 import { type ChartCardPropsType } from "~/components/home/Cards/ChartCard.js";
+import { TopGainersCard } from "~/components/home/Cards/TopGainersCard.js";
 
 export async function clientLoader() {
   await getAllData();
   const bitcoinData = await getCoinData("bitcoin");
-  const bitcoinChartData = await getCoinChartData("bitcoin");
+  console.log(bitcoinData);
 
-  return { bitcoinData, bitcoinChartData };
+  const bitcoinChartData = await getCoinChartData("bitcoin");
+  const topGainers = await getTopGainers();
+  const topLosers = await getTopLosers();
+  console.log(topGainers);
+  console.log(topLosers);
+
+
+  return { bitcoinData, bitcoinChartData, topGainers, topLosers };
 }
 
 export default function home({ loaderData }: Route.ComponentProps) {
@@ -73,7 +81,7 @@ export default function home({ loaderData }: Route.ComponentProps) {
       </Sidebar>
       <div className="w-full ">
         <TopBar />
-        <Dashboard bitcoinData={loaderData.bitcoinData} bitcoinChartData={chartData} />
+        <Dashboard bitcoinData={loaderData.bitcoinData} bitcoinChartData={chartData} TopGainersList={loaderData.topGainers} TopLosersList={loaderData.topLosers} />
       </div>
     </div>
   );

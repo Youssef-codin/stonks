@@ -57,13 +57,12 @@
   --border: hsla(320 10% 80% / 0.05);
   /* faint highlight */
 
-  --text: hsl(321 100% 99%);
-  /* #FFF9FE */
+  --text: #FFF9FE;
   --text-muted: hsl(320 50% 73%);
   /* #D99CCB */
   --highlight: hsl(318 32% 41%);
   /* #7E4F6C */
-  --border-muted: hsl(315 69% 18%);
+  --border-muted: hsl(315 69% 25%);
   /* #38072A */
   --primary: hsl(320 55% 73%);
   /* #DA9BCC */
