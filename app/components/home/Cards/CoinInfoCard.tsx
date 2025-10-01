@@ -1,4 +1,4 @@
-import { IconArrowUp, IconChartCandle, IconChartHistogram, IconDeviceDesktopAnalytics } from "@tabler/icons-react";
+import { IconArrowDown, IconArrowUp, IconChartHistogram } from "@tabler/icons-react";
 import type { singleCoinInfo } from "~/api";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 
@@ -13,6 +13,8 @@ export function formatCurrencyCompact(value: number, currency: string = "USD"): 
 
 export function CoinInfoCard({ stats }: { stats: singleCoinInfo }) {
 
+  const percent24h: number = stats.market_data.price_change_percentage_24h;
+
   return (
     <Card className="border rounded-2xl p-4">
       <CardHeader>
@@ -25,7 +27,7 @@ export function CoinInfoCard({ stats }: { stats: singleCoinInfo }) {
           </div>
         </CardTitle>
         <hr />
-        <div className="pt-3 grid grid-cols-2 gap-12">
+        <div className="pt-3 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
           <div>
             <div className="text-md font-normal text-[var(--text)]">Current Price</div>
             <div className="text-xl font-normal">{formatCurrencyCompact(stats.market_data.current_price.usd)}</div>
@@ -33,8 +35,9 @@ export function CoinInfoCard({ stats }: { stats: singleCoinInfo }) {
           <div>
             <div className="text-md font-normal text-[var(--text)]">24h price change</div>
             <div className="text-xl font-normal ">
-              <span className="flex"><IconArrowUp color="#5BB387" />
-                {Math.floor(stats.market_data.price_change_percentage_24h * 100)}%
+              <span className={`flex ` + (percent24h >= 0 ? `text-[var(--success)]` : `text-[var(--danger)]`)}>
+                {percent24h >= 0 ? (<IconArrowUp color="#5BB387" />) : <IconArrowDown color="#DF8177" />}
+                {percent24h.toFixed(2)}%
               </span>
             </div>
           </div>

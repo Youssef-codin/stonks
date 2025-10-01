@@ -1,10 +1,8 @@
-import { IconChartLine, IconGraphOff } from "@tabler/icons-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
+import { IconGraphOff } from "@tabler/icons-react";
+import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import {
   Table,
   TableBody,
-  TableCaption,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
@@ -25,29 +23,31 @@ export function TopLosersCard({ stats }: { stats: multipleCoinInfo[] }) {
           </div>
         </CardTitle>
         <CardContent className="px-1">
-          <Table className="w-full">
-            <TableHeader>
-              <TableRow className="border-[var(--border-muted)]">
-                <TableHead className="w-[1%] text-[var(--text-muted)]">Rank</TableHead>
-                <TableHead className="w-[1%] text-[var(--text-muted)]">Icon</TableHead>
-                <TableHead className="text-[var(--text-muted)]">Name</TableHead>
-                <TableHead className="text-right text-[var(--text-muted)]">Change %</TableHead>
-                <TableHead className="text-right text-[var(--text-muted)]">Price</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {stats.map((coin: multipleCoinInfo, index: number) => (
-                <TopCell
-                  key={coin.name}
-                  rank={index + 1}
-                  icon={coin.image}
-                  name={coin.name}
-                  price={coin.current_price}
-                  change={coin.price_change_percentage_24h}
-                />
-              ))}
-            </TableBody>
-          </Table>
+          <div className="overflow-x-auto">
+            <Table className="w-full">
+              <TableHeader>
+                <TableRow className="border-[var(--border-muted)]">
+                  <TableHead className="w-[1%] text-[var(--text-muted)] hidden md:table-cell">Rank</TableHead>
+                  <TableHead className="w-[1%] text-[var(--text-muted)] hidden md:table-cell">Icon</TableHead>
+                  <TableHead className="text-[var(--text-muted)]">Name</TableHead>
+                  <TableHead className="text-right text-[var(--text-muted)]">Change %</TableHead>
+                  <TableHead className="text-right text-[var(--text-muted)]">Price</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {stats.map((coin: multipleCoinInfo, index: number) => (
+                  <TopCell
+                    key={coin.name}
+                    rank={index + 1}
+                    icon={coin.image}
+                    name={coin.name}
+                    price={coin.current_price}
+                    change={coin.price_change_percentage_24h}
+                  />
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </CardContent>
       </CardHeader>
     </Card>

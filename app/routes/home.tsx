@@ -55,10 +55,10 @@ export default function home({ loaderData }: Route.ComponentProps) {
     },
   ];
 
-  const [open, setOpen] = useState(true); //FIXME: change to false when not testing
+  const [open, setOpen] = useState(false);
   return (
     // holds the whole thing
-    <div className="flex w-full flex-1 flex-col md:flex-row overflow-hidden h-screen bg-[var(--bg-dark)] ">
+    <div className="flex w-full flex-1 flex-col md:flex-row h-screen bg-[var(--bg-dark)] ">
       <Sidebar open={open} setOpen={setOpen}>
         <SidebarBody className="justify-between gap-10">
           <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
@@ -79,7 +79,7 @@ export default function home({ loaderData }: Route.ComponentProps) {
           </div>
         </SidebarBody>
       </Sidebar>
-      <div className="w-full ">
+      <div className="flex-1 flex-col overflow-y-auto">
         <TopBar />
         <Dashboard bitcoinData={loaderData.bitcoinData} bitcoinChartData={chartData} TopGainersList={loaderData.topGainers} TopLosersList={loaderData.topLosers} />
       </div>

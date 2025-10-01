@@ -6,8 +6,8 @@ export function TopCell({ rank, icon, name, change, price }:
 
   return (
     <TableRow className="border-[var(--border-muted)]">
-      <TableCell className="text-center">{rank}</TableCell>
-      <TableCell>
+      <TableCell className="text-center hidden md:table-cell">{rank}</TableCell>
+      <TableCell className="hidden md:table-cell">
         <img className="w-6 h-6" src={icon} />
       </TableCell>
       <TableCell>{name}</TableCell>

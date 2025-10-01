@@ -18,13 +18,12 @@ export const TopBar = () => {
   }
 
   return (
-    <div className="flex flex-row w-full h-14 pt-2 relative bg-(var[--bg-dark])" >
+    <div className="flex p-2">
       <PlaceholdersAndVanishInput
         placeholders={placeholders}
         onChange={onChange}
         onSubmit={onSubmit}
-      >
-      </PlaceholdersAndVanishInput>
+      />
     </div>
   );
 }

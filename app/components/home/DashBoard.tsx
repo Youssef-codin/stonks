@@ -7,9 +7,7 @@ import { StonksCard } from "./Cards/StonksCard";
 
 export function Dashboard({ bitcoinData, bitcoinChartData, TopGainersList, TopLosersList }: { bitcoinData: singleCoinInfo, bitcoinChartData: ChartCardPropsType, TopGainersList: multipleCoinInfo[], TopLosersList: multipleCoinInfo[] }) {
   return (
-    <div className="grid grid-cols-1 grid-rows-[370px] gap-y-4 gap lg:grid-cols-3 lg:grid-rows-[450px_auto] 
-      lg:gap-x-12 lg:gap-y-10 bottom-1 h-screen w-full overflow-y-scroll md:overflow-y-auto md:rounded-tl-2xl 
-       pl-4 pt-2 pr-4 md:pl-18 md:pt-10 md:pr-15 md:pb-24 border border-t-neutral-200 bg-[var(--bg)]">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 p-4 lg:gap-8 lg:p-10 w-full md:overflow-y-auto md:rounded-tl-2xl border-t border-border bg-background">
 
       <ChartCard ChartCardProps={bitcoinChartData} />
       <CoinInfoCard stats={bitcoinData} />
